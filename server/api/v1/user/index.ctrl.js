@@ -1,10 +1,16 @@
 import axios from 'axios';
 import camelcase from 'camelcase-keys';
 
-export const getUserProfile = (req, res) => {
-  res.json({
-    ok: true,
-  });
+export const getUserProfile = async (req, res) => {
+  try {
+    const user = req.params.user;
+    const response = await axios.get(`https://api.github.com/users/${user}`);
+    const arr = camelcase(response.data);
+    res.json(arr);
+  } catch (e) {
+    console.log(e);
+  }
+  res.json({});
 };
 
 export const getUserIssue = async (req, res) => {
