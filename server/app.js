@@ -8,6 +8,6 @@ const app = express();
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
-app.use('/api', apiRouter);
+app.use('/api/v1', apiRouter);
 
 export default app;
