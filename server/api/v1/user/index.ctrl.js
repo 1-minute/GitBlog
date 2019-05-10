@@ -9,7 +9,7 @@ export const getUserProfile = (req, res) => {
 
 export const getUserIssue = async (req, res) => {
   try {
-    const owner = 'Q00';
+    const owner = req.params.owner;
     const repo = 'react-study';
     const response = await axios.get(
       `https://api.github.com/repos/${owner}/${repo}/issues`,
