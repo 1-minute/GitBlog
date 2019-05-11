@@ -15,10 +15,10 @@ const User = ({ profile, posts }) => (
 User.getInitialProps = async ({ query }) => {
   const { username } = query;
   const profileResponse = await axios.get(
-    `http://localhost:9090/api/v1/users/${username}/profile`,
+    `${process.env.API_URL}/api/v1/users/${username}/profile`,
   );
   const postResponse = await axios.get(
-    `http://localhost:9090/api/v1/users/${username}/issues`,
+    `${process.env.API_URL}/api/v1/users/${username}/issues`,
   );
   return {
     profile: profileResponse.data,
