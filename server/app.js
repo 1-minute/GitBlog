@@ -9,6 +9,7 @@ const app = express();
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
+
 passportConfig(app, passport);
 app.use('/api/v1', apiRouter);
 
