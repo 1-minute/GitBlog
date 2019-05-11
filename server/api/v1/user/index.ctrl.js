@@ -4,6 +4,7 @@ import getThumbnail from '../../../util/getThumbnail';
 import camelcase from 'camelcase-keys';
 import addOAuthParameter from '../../../util/addOAuthParameter';
 import User from '../../../db/models';
+import { Base64 } from 'js-base64';
 
 export const getUserProfile = async (req, res) => {
   try {
@@ -76,6 +77,26 @@ export const saveUserRepository = async (req, res) => {
     }
     await findUser.save();
     res.json({ status: 'ok' });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const aboutReadMe = async (req, res) => {
+  try {
+    const { user } = req.params;
+    const findUser = await User.findOne({ name: user });
+    if (findUser) {
+      const { repo } = findUser;
+      const response = await axios.get(
+        addOAuthParameter(
+          `https://api.github.com/repos/${user}/${repo}/readme`,
+        ),
+      );
+      const b64String = Base64.decode(response.data.content);
+      res.json({ content: b64String });
+    }
+    res.json({ content: null });
   } catch (err) {
     console.log(err);
   }
