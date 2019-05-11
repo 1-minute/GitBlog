@@ -1,12 +1,12 @@
 import axios from 'axios';
 import camelcase from 'camelcase-keys';
-import getWhateverParameter from '../../../util/whateverParameter';
+import addWhateverParameter from '../../../util/whateverParameter';
 
 export const getUserProfile = async (req, res) => {
   try {
     const user = req.params.user;
     const response = await axios.get(
-      getWhateverParameter(`https://api.github.com/users/${user}`),
+      addWhateverParameter(`https://api.github.com/users/${user}`),
     );
     const arr = camelcase(response.data);
     res.json(arr);
@@ -20,9 +20,9 @@ export const getUserIssue = async (req, res) => {
   try {
     const owner = req.params.owner;
     const repo = 'react-study';
-    await getWhateverParameter;
+    await addWhateverParameter;
     const response = await axios.get(
-      getWhateverParameter(
+      addWhateverParameter(
         `https://api.github.com/repos/${owner}/${repo}/issues`,
       ),
     );
