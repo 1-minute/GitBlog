@@ -13,7 +13,7 @@ dotenv.config({
   path: path.join(__dirname, `./.env.${process.env.NODE_ENV || 'development'}`),
 });
 app.use(morgan('dev'));
-connectDB();
+
 app.use(bodyParser.json());
 passportConfig(app, passport);
 app.use('/api/v1', apiRouter);
