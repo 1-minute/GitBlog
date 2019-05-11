@@ -1,17 +1,9 @@
 import githubStrategy from 'passport-github';
-import dotenv from 'dotenv';
-import path from 'path';
 import User from '../models/user';
 
-const config = dotenv.config({
-  path: path.join(
-    __dirname,
-    `../.env.${process.env.NODE_ENV || 'development'}`,
-  ),
-});
 const github = githubStrategy.Strategy;
 
-module.exports = (app, passport) => {
+export default (app, passport, config) => {
   app.use(passport.initialize());
   app.use(passport.session());
 
