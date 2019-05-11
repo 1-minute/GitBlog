@@ -6,14 +6,16 @@ import passport from 'passport';
 import passportConfig from './lib/github';
 import dotenv from 'dotenv';
 import path from 'path';
-
+import connectDB from './db';
 const app = express();
-const config = dotenv.config({
+
+dotenv.config({
   path: path.join(__dirname, `./.env.${process.env.NODE_ENV || 'development'}`),
 });
 app.use(morgan('dev'));
+
 app.use(bodyParser.json());
-passportConfig(app, passport, config);
+passportConfig(app, passport);
 app.use('/api/v1', apiRouter);
 
 export default app;
