@@ -1,1 +1,3 @@
-export default from './RepoForm';
+import RepoForm from './RepoForm';
+
+export default RepoForm;

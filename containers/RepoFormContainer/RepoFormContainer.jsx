@@ -5,8 +5,12 @@ import { bindActionCreators } from 'redux';
 import * as repoActions from '../../store/repo/actions';
 
 const RepoFormContainer = ({ inputText, RepoActions }) => {
-  const { searchInputChange } = RepoActions;
-  return <RepoForm onChange={searchInputChange} inputText={inputText} />;
+  const { searchInputChange, filterRepoList } = RepoActions;
+  const handleChange = (value) => {
+    searchInputChange(value);
+    filterRepoList(value);
+  };
+  return <RepoForm onChange={handleChange} inputText={inputText} />;
 };
 
 export default connect(
