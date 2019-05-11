@@ -1,9 +1,9 @@
 import githubStrategy from 'passport-github';
-import User from '../models/user';
+import User from '../db/models';
 
 const github = githubStrategy.Strategy;
 
-export default (app, passport, config) => {
+export default (app, passport) => {
   app.use(passport.initialize());
   app.use(passport.session());
 
@@ -18,17 +18,19 @@ export default (app, passport, config) => {
   passport.use(
     new github(
       {
-        clientID: config.parsed.GITHUB_CLIENT_ID,
-        clientSecret: config.parsed.GITHUB_CLIENT_SECRET,
-        callbackURL: config.parsed.GITHUB_CALLBACK_URL,
+        clientID: process.env.GITHUB_CLIENT_ID,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET,
+        callbackURL: process.env.GITHUB_CALLBACK_URL,
         scope: 'user:email',
       },
       async (accessToken, refreshToken, profile, done) => {
-        const userId = profile.id;
-        const userName = profile.username;
-        return done(null, profile);
-        //디비 연결
-        //있으면 로그인, 없으면 회원가입
+        const userName = profile.login;
+
+        const user = await User.findOne({ name: userName });
+        if (user) {
+          return done(null, profile);
+        }
+        return done(null);
       },
     ),
   );
