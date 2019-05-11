@@ -7,7 +7,7 @@ import axios from 'axios';
 const User = ({ profile, posts, pathname }) => (
   <Layout>
     <UserLayout profile={profile} pathname={pathname}>
-      <UserPost posts={posts} />
+      <UserPost posts={posts} username={profile.login} />
     </UserLayout>
   </Layout>
 );
@@ -20,6 +20,7 @@ User.getInitialProps = async ({ query, pathname }) => {
   const postResponse = await axios.get(
     `${process.env.API_URL}/api/v1/users/${username}/issues`,
   );
+  console.log(profileResponse.data);
   return {
     profile: profileResponse.data,
     posts: postResponse.data,

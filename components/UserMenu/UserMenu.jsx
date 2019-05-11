@@ -34,7 +34,9 @@ const UserMenu = ({ username, pathname }) => (
         <StyledLink
           href={`/${username.toLowerCase()}`}
           name='Posts'
-          className={`${pathname === '/user' ? 'active' : ''}`}
+          className={`${
+            pathname === '/user' || pathname === '/post' ? 'active' : ''
+          }`}
         />
       </UserMenuListItem>
       <UserMenuListItem>
