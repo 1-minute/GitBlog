@@ -14,8 +14,12 @@ const PostContent = styled.div`
 
 const PostImage = styled.img`
   border-radius: 3px;
-  width: 200px;
+  width: 100%;
   height: 150px;
+  margin-right: 10px;
+`;
+const PostImageWrapper = styled.div`
+  width: 200px;
   margin-right: 10px;
 `;
 
@@ -53,8 +57,12 @@ const UserPost = ({ posts }) => (
         posts.map((post) => (
           <PostListItem key={post.id}>
             <PostContent>
-              <PostImage src={post.thumbnail} />
-              <div>
+              {post.thumbnail && (
+                <PostImageWrapper>
+                  <PostImage src={post.thumbnail} />
+                </PostImageWrapper>
+              )}
+              <div style={{ flex: '1' }}>
                 <PostHeading>{post.title}</PostHeading>
                 <PostDescription>{`${post.plainBody.slice(
                   0,
