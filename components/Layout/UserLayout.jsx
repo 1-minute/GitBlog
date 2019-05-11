@@ -10,7 +10,7 @@ const Wrapper = styled.div`
 `;
 
 const Content = styled.div`
-  flex: 2;
+  width: calc(100% - 350px);
   padding: 1.75rem;
 `;
 

@@ -32,21 +32,21 @@ const UserMenu = ({ username, pathname }) => (
     <UserMenuList>
       <UserMenuListItem>
         <StyledLink
-          href={`/${username}`}
+          href={`/${username.toLowerCase()}`}
           name='Posts'
           className={`${pathname === '/user' ? 'active' : ''}`}
         />
       </UserMenuListItem>
       <UserMenuListItem>
         <StyledLink
-          href={`/${username}/gist`}
+          href={`/${username.toLowerCase()}/gist`}
           name='Gists'
           className={`${pathname === '/gist' ? 'active' : ''}`}
         />
       </UserMenuListItem>
       <UserMenuListItem>
         <StyledLink
-          href={`/${username}/about`}
+          href={`/${username.toLowerCase()}/about`}
           name='About'
           className={`${pathname === '/about' ? 'active' : ''}`}
         />
