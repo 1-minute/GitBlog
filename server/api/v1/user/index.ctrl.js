@@ -3,6 +3,7 @@ import removeMd from 'remove-markdown';
 import getThumbnail from '../../../util/getThumbnail';
 import camelcase from 'camelcase-keys';
 import addOAuthParameter from '../../../util/addOAuthParameter';
+import User from '../../../db/models';
 
 export const getUserProfile = async (req, res) => {
   try {
@@ -20,19 +21,27 @@ export const getUserProfile = async (req, res) => {
 
 export const getUserIssue = async (req, res) => {
   try {
-    const { owner } = req.params;
-    const repo = 'react-study';
-    const response = await axios.get(
-      addOAuthParameter(`https://api.github.com/repos/${owner}/${repo}/issues`),
-    );
-    const arr = camelcase(response.data, { deep: true });
-    res.json(
-      arr.map((iss) => {
-        iss.plainBody = removeMd(iss.body);
-        iss.thumbnail = getThumbnail(iss.body);
-        return iss;
-      }),
-    );
+    const { user } = req.params;
+
+    const findUser = await User.findOne({ name: user });
+    if (findUser) {
+      const { repo } = findUser;
+      const response = await axios.get(
+        addOAuthParameter(
+          `https://api.github.com/repos/${user}/${repo}/issues`,
+        ),
+      );
+      const arr = camelcase(response.data, { deep: true });
+      res.json(
+        arr.map((iss) => {
+          iss.plainBody = removeMd(iss.body);
+          iss.thumbnail = getThumbnail(iss.body);
+          return iss;
+        }),
+      );
+    } else {
+      res.redirect('/');
+    }
   } catch (err) {
     console.log(err);
   }
@@ -52,6 +61,23 @@ export const getUserRepositories = async (req, res) => {
     }));
 
     res.json(result);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const saveUserRepository = async (req, res) => {
+  try {
+    const { user } = req.params;
+    console.log(user);
+    const { repo } = req.body;
+    const findUser = await User.findOne({ name: user });
+    if (findUser) {
+      findUser.repo = repo;
+    }
+    console.log(findUser);
+    await findUser.save();
+    res.json({ status: 'ok' });
   } catch (err) {
     console.log(err);
   }
