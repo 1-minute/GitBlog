@@ -10,7 +10,7 @@ const User = new Schema({
     type: String,
   },
   follower: {
-    type: JSON,
+    type: Array,
   },
 });
 
