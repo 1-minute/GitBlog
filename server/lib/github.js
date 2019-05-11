@@ -24,13 +24,15 @@ export default (app, passport) => {
         scope: 'user:email',
       },
       async (accessToken, refreshToken, profile, done) => {
-        const userName = profile.login;
+        const userName = profile.username.toLowerCase();
 
         const user = await User.findOne({ name: userName });
-        if (user) {
-          return done(null, profile);
+        if (!user) {
+          const newUser = new User();
+          newUser.name = userName;
+          await newUser.save();
         }
-        return done(null);
+        return done(null, profile);
       },
     ),
   );

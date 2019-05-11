@@ -7,5 +7,6 @@ export default (markdown) => {
     window: { document },
   } = new JSDOM(html);
 
-  return document.querySelector('img').src;
+  const img = document.querySelector('img');
+  return img ? img.src : '';
 };
