@@ -101,3 +101,22 @@ export const aboutReadMe = async (req, res) => {
     console.log(err);
   }
 };
+
+export const getUserGist = async (req, res) => {
+  try {
+    const { user } = req.params;
+    const findUser = await User.findOne({ name: user });
+    if (findUser) {
+      const response = await axios.get(
+        `https://api.github.com/users/${user}/gists`,
+      );
+      const gistIdArr = response.data.map((o) => {
+        return `https://https://gist.github.com/${user}/${o.id}.js`;
+      });
+
+      res.json({ urls: gistIdArr });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
