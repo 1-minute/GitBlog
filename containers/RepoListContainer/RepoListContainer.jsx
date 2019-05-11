@@ -5,7 +5,7 @@ import * as repoActions from '../../store/repo/actions';
 import RepoList from '../../components/RepoList/RepoList';
 import styled from 'styled-components';
 import Button from '../../components/common/Button';
-import { Router } from 'next-routes';
+import Router from 'next/router';
 
 const ButtonWrapper = styled.p`
   margin: 10px 0;
@@ -29,7 +29,7 @@ class RepoListContainer extends Component {
       user: username,
       repo: repos.find((repo) => repo.id === selectedRepo).name,
       callback: () => {
-        Router.pushRoute(`/${username}`);
+        Router.push(`/${username}`);
       },
     });
   }
