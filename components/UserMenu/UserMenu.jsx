@@ -27,17 +27,29 @@ const StyledLink = ({ href, name, className }) => (
   </Link>
 );
 
-const UserMenu = () => (
+const UserMenu = ({ username, pathname }) => (
   <UserMenuWrapper>
     <UserMenuList>
       <UserMenuListItem>
-        <StyledLink href='/posts' name='Posts' className='active' />
+        <StyledLink
+          href={`/${username}`}
+          name='Posts'
+          className={`${pathname === '/user' ? 'active' : ''}`}
+        />
       </UserMenuListItem>
       <UserMenuListItem>
-        <StyledLink href='/gists' name='Gists' />
+        <StyledLink
+          href={`/${username}/gist`}
+          name='Gists'
+          className={`${pathname === '/gist' ? 'active' : ''}`}
+        />
       </UserMenuListItem>
       <UserMenuListItem>
-        <StyledLink href='/about' name='About' />
+        <StyledLink
+          href={`/${username}/about`}
+          name='About'
+          className={`${pathname === '/about' ? 'active' : ''}`}
+        />
       </UserMenuListItem>
     </UserMenuList>
   </UserMenuWrapper>
