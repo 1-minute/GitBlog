@@ -4,7 +4,7 @@ import passport from 'passport';
 
 const router = new Router();
 
-router.get('/github', passport.authenticate('github'));
+router.get('/github', passport.authenticate('github'), authCtrl.login);
 router.get(
   '/github/callback',
   passport.authenticate('github', { failureRedirect: '/' }),
