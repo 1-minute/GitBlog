@@ -1,37 +1,15 @@
 import React from 'react';
-import Container from '../components/common/Container';
-import UserProfile from '../components/UserProfile';
-import UserMenu from '../components/UserMenu';
-import Sidebar from '../components/common/Sidebar';
-import styled from 'styled-components';
-import { createGlobalStyle } from 'styled-components';
-import reset from 'styled-reset';
+import Layout from '../components/Layout';
+import UserLayout from '../components/Layout/UserLayout';
+import UserPost from '../components/UserPost';
 import axios from 'axios';
 
-const Wrapper = styled.div`
-  display: flex;
-`;
-
-const Content = styled.div`
-  flex: 2;
-  padding: 1.75rem;
-`;
-
-const GlobalStyle = createGlobalStyle`
-  ${reset}
-`;
-
-const User = ({ profile }) => (
-  <Container>
-    <GlobalStyle />
-    <Wrapper>
-      <Sidebar>
-        <UserProfile {...profile} />
-        <UserMenu />
-      </Sidebar>
-      <Content>Content</Content>
-    </Wrapper>
-  </Container>
+const User = ({ profile, posts }) => (
+  <Layout>
+    <UserLayout profile={profile}>
+      <UserPost posts={posts} />
+    </UserLayout>
+  </Layout>
 );
 
 User.getInitialProps = async ({ query }) => {
@@ -39,8 +17,12 @@ User.getInitialProps = async ({ query }) => {
   const profileResponse = await axios.get(
     `http://localhost:9090/api/v1/users/${username}/profile`,
   );
+  const postResponse = await axios.get(
+    `http://localhost:9090/api/v1/users/${username}/issues`,
+  );
   return {
     profile: profileResponse.data,
+    posts: postResponse.data,
   };
 };
 
