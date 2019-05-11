@@ -1,6 +1,7 @@
 const initialState = {
   repoSearchInput: '',
   repoList: [],
+  originalList: [],
   selectedRepo: '',
 };
 
