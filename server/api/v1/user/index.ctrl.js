@@ -110,9 +110,7 @@ export const getUserGist = async (req, res) => {
       const response = await axios.get(
         `https://api.github.com/users/${user}/gists`,
       );
-      const gistIdArr = response.data.map((o) => {
-        return `https://https://gist.github.com/${user}/${o.id}.js`;
-      });
+      const gistIdArr = response.data.map((o) => o.id);
 
       res.json({ urls: gistIdArr });
     }
