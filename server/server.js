@@ -1,19 +1,17 @@
 import next from 'next';
 import app from './app';
+import routes from './routes';
 
 const dev = process.env.NODE_ENV !== 'production';
-
 const nextApp = next({ dev });
-
-const handle = nextApp.getRequestHandler();
+const handler = routes.getRequestHandler(nextApp);
 
 nextApp.prepare().then(() => {
-  app.get('*', (req, res) => {
-    return handle(req, res);
-  });
+  app.use(handler);
 
-  app.listen(9090, (err) => {
+  console.log(process.env.PORT);
+  app.listen(process.env.PORT || 9090, (err) => {
     if (err) throw err;
-    console.log('> Ready on Server Port: 9090');
+    console.log('> Ready on Server Port: ' + process.env.PORT || 9090);
   });
 });
