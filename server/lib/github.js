@@ -9,7 +9,6 @@ const config = dotenv.config({
     `../.env.${process.env.NODE_ENV || 'development'}`,
   ),
 });
-console.log(config.parsed);
 const github = githubStrategy.Strategy;
 
 module.exports = (app, passport) => {
@@ -35,7 +34,6 @@ module.exports = (app, passport) => {
       async (accessToken, refreshToken, profile, done) => {
         const userId = profile.id;
         const userName = profile.username;
-        console.log(profile);
         return done(null, profile);
         //디비 연결
         //있으면 로그인, 없으면 회원가입
