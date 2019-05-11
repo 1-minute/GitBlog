@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import TagList from '../TagList';
 import dayjs from 'dayjs';
 import { MdSchedule } from 'react-icons/md';
+import Link from 'next/link';
 
 const UserPostWrapper = styled.div``;
 
@@ -33,6 +34,7 @@ const PostListItem = styled.li`
 const PostHeading = styled.h1`
   font-size: 24px;
   margin-bottom: 10px;
+  cursor: pointer;
 `;
 
 const PostDescription = styled.p`
@@ -50,7 +52,7 @@ const HelpBlock = styled.span`
   margin-top: 5px;
 `;
 
-const UserPost = ({ posts }) => (
+const UserPost = ({ posts, username }) => (
   <UserPostWrapper>
     <PostList>
       {posts &&
@@ -63,7 +65,9 @@ const UserPost = ({ posts }) => (
                 </PostImageWrapper>
               )}
               <div style={{ flex: '1' }}>
-                <PostHeading>{post.title}</PostHeading>
+                <Link href={`/${username.toLowerCase()}/post/${post.number}`}>
+                  <PostHeading>{post.title}</PostHeading>
+                </Link>
                 <PostDescription>{`${post.plainBody.slice(
                   0,
                   200,

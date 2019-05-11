@@ -5,4 +5,5 @@ export default routes()
   .add('/:username', '/user')
   .add('/:username/repoForm', '/repo')
   .add('/:username/about', '/about')
+  .add('/:username/post/:postId', '/post')
   .add('/:username/gist', '/gist');
