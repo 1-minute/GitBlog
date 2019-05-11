@@ -120,3 +120,24 @@ export const getUserGist = async (req, res) => {
     console.log(err);
   }
 };
+
+export const getSingleIssue = async (req, res) => {
+  try {
+    // /repos/:owner/:repo/issues/:issue_number
+    const { user, num } = req.params;
+    const findUser = await User.findOne({ name: user });
+    if (findUser) {
+      const { repo } = findUser;
+      const response = await axios.get(
+        `https://api.github.com/repos/${user}/${repo}/issues/${num}`,
+      );
+      res.json({
+        title: response.data.title,
+        body: response.data.body,
+        labels: response.data.labels,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
