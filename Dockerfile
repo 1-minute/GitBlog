@@ -10,5 +10,7 @@ COPY . /usr/src/app
 RUN cd /usr/src/app && yarn install
 RUN yarn build
 
+EXPOSE 3000
+
 CMD ["yarn", "start"]
 
