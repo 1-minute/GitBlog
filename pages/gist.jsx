@@ -1,30 +1,32 @@
 import React from 'react';
 import Layout from '../components/Layout';
 import UserLayout from '../components/Layout/UserLayout';
-import UserPost from '../components/UserPost';
 import axios from 'axios';
+import ReactGist from 'react-gist';
 
-const User = ({ profile, posts, pathname }) => (
+const Gist = ({ profile, pathname, gists }) => (
   <Layout>
     <UserLayout profile={profile} pathname={pathname}>
-      <UserPost posts={posts} />
+      {gists.map((gist) => (
+        <ReactGist id={gist} key={gist} />
+      ))}
     </UserLayout>
   </Layout>
 );
 
-User.getInitialProps = async ({ query, pathname }) => {
+Gist.getInitialProps = async ({ query, pathname }) => {
   const { username } = query;
   const profileResponse = await axios.get(
     `${process.env.API_URL}/api/v1/users/${username}/profile`,
   );
-  const postResponse = await axios.get(
-    `${process.env.API_URL}/api/v1/users/${username}/issues`,
+  const gistResponse = await axios.get(
+    `${process.env.API_URL}/api/v1/users/${username}/gist`,
   );
   return {
     profile: profileResponse.data,
-    posts: postResponse.data,
+    gists: gistResponse.data.urls,
     pathname,
   };
 };
 
-export default User;
+export default Gist;

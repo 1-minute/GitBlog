@@ -21,6 +21,10 @@ class CommonDocument extends Document {
       <Html>
         <Head>
           <title>GitBlog</title>
+          <link
+            rel='stylesheet'
+            href='https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.css'
+          />
         </Head>
         <body>
           <Main />

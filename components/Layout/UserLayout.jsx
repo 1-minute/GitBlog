@@ -14,12 +14,12 @@ const Content = styled.div`
   padding: 1.75rem;
 `;
 
-const UserLayout = ({ profile, children }) => (
+const UserLayout = ({ profile, children, pathname }) => (
   <Container>
     <Wrapper>
       <Sidebar>
         <UserProfile {...profile} />
-        <UserMenu />
+        <UserMenu username={profile.login} pathname={pathname} />
       </Sidebar>
       <Content>{children}</Content>
     </Wrapper>

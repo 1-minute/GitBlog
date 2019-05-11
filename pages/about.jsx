@@ -1,13 +1,13 @@
 import React from 'react';
 import Layout from '../components/Layout';
 import UserLayout from '../components/Layout/UserLayout';
-import UserPost from '../components/UserPost';
+import MarkdownContent from '../components/MarkdownContent';
 import axios from 'axios';
 
-const User = ({ profile, posts, pathname }) => (
+const User = ({ profile, about, pathname }) => (
   <Layout>
     <UserLayout profile={profile} pathname={pathname}>
-      <UserPost posts={posts} />
+      <MarkdownContent markdown={about} />
     </UserLayout>
   </Layout>
 );
@@ -17,12 +17,12 @@ User.getInitialProps = async ({ query, pathname }) => {
   const profileResponse = await axios.get(
     `${process.env.API_URL}/api/v1/users/${username}/profile`,
   );
-  const postResponse = await axios.get(
-    `${process.env.API_URL}/api/v1/users/${username}/issues`,
+  const aboutResponse = await axios.get(
+    `${process.env.API_URL}/api/v1/users/${username}/about`,
   );
   return {
     profile: profileResponse.data,
-    posts: postResponse.data,
+    about: aboutResponse.data.content,
     pathname,
   };
 };
