@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { MdLabel } from 'react-icons/md';
 const TagListWrapper = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 const TagContent = styled.div`
@@ -12,7 +13,7 @@ const TagContent = styled.div`
 const Tag = styled.span`
   padding: 5px;
   font-size: 12px;
-  background: skyblue;
+  background: #${(props) => props.color};
   color: white;
   border-radius: 3px;
   margin-bottom: 5px;
@@ -27,7 +28,9 @@ const TagList = ({ tags }) => (
     </span>
     <TagContent>
       {tags.map((tag) => (
-        <Tag key={tag}>{tag}</Tag>
+        <Tag key={tag.id} color={tag.color}>
+          {tag.name}
+        </Tag>
       ))}
     </TagContent>
   </TagListWrapper>
