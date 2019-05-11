@@ -6,15 +6,13 @@ import connectDB from './db';
 const dev = process.env.NODE_ENV !== 'production';
 const nextApp = next({ dev });
 const handler = routes.getRequestHandler(nextApp);
-connectDB().then(
+connectDB().then(() => {
   nextApp.prepare().then(() => {
     app.use(handler);
 
-nextApp.prepare().then(() => {
-  app.use(handler);
-
-  app.listen(process.env.PORT || 9090, (err) => {
-    if (err) throw err;
-    console.log(`> Ready on Server Port: ${  process.env.PORT}` || 9090);
+    app.listen(process.env.PORT || 9090, (err) => {
+      if (err) throw err;
+      console.log(`> Ready on Server Port: ${process.env.PORT}` || 9090);
+    });
   });
 });

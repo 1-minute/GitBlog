@@ -51,7 +51,7 @@ const UserPost = ({ posts }) => (
     <PostList>
       {posts &&
         posts.map((post) => (
-          <PostListItem>
+          <PostListItem key={post.id}>
             <PostContent>
               <PostImage src={post.thumbnail} />
               <div>

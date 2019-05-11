@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
+
 const connectDB = () => {
-  const MONGO_URI = process.env.MONGO_URI;
+  const { MONGO_URI } = process.env;
   mongoose.Promise = global.Promise;
 
   return mongoose

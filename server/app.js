@@ -6,7 +6,7 @@ import passport from 'passport';
 import passportConfig from './lib/github';
 import dotenv from 'dotenv';
 import path from 'path';
-import connectDB from './db';
+
 const app = express();
 
 dotenv.config({
