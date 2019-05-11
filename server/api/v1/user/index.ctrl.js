@@ -2,13 +2,13 @@ import axios from 'axios';
 import removeMd from 'remove-markdown';
 import getThumbnail from '../../../util/getThumbnail';
 import camelcase from 'camelcase-keys';
-import addWhateverParameter from '../../../util/whateverParameter';
+import addOAuthParameter from '../../../util/addOAuthParameter';
 
 export const getUserProfile = async (req, res) => {
   try {
-    const user = req.params.user;
+    const { user } = req.params;
     const response = await axios.get(
-      addWhateverParameter(`https://api.github.com/users/${user}`),
+      addOAuthParameter(`https://api.github.com/users/${user}`),
     );
     const arr = camelcase(response.data);
     res.json(arr);
@@ -20,13 +20,10 @@ export const getUserProfile = async (req, res) => {
 
 export const getUserIssue = async (req, res) => {
   try {
-    const owner = req.params.owner;
+    const { owner } = req.params;
     const repo = 'react-study';
-    await addWhateverParameter;
     const response = await axios.get(
-      addWhateverParameter(
-        `https://api.github.com/repos/${owner}/${repo}/issues`,
-      ),
+      addOAuthParameter(`https://api.github.com/repos/${owner}/${repo}/issues`),
     );
     const arr = camelcase(response.data, { deep: true });
     res.json(
@@ -36,6 +33,25 @@ export const getUserIssue = async (req, res) => {
         return iss;
       }),
     );
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getUserRepositories = async (req, res) => {
+  try {
+    const { user } = req.params;
+    const response = await axios.get(
+      addOAuthParameter(`https://api.github.com/users/${user}/repos`),
+    );
+
+    const result = response.data.map((v) => ({
+      id: v.id,
+      name: v.name,
+      description: v.description,
+    }));
+
+    res.json(result);
   } catch (err) {
     console.log(err);
   }
