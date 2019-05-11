@@ -1,7 +1,6 @@
 import githubStrategy from 'passport-github';
-import User from '../models/user';
 
-const github = githubStrategy.Strategy;
+const Github = githubStrategy.Strategy;
 
 export default (app, passport, config) => {
   app.use(passport.initialize());
@@ -16,7 +15,7 @@ export default (app, passport, config) => {
   });
 
   passport.use(
-    new github(
+    new Github(
       {
         clientID: config.parsed.GITHUB_CLIENT_ID,
         clientSecret: config.parsed.GITHUB_CLIENT_SECRET,
@@ -24,11 +23,7 @@ export default (app, passport, config) => {
         scope: 'user:email',
       },
       async (accessToken, refreshToken, profile, done) => {
-        const userId = profile.id;
-        const userName = profile.username;
         return done(null, profile);
-        //디비 연결
-        //있으면 로그인, 없으면 회원가입
       },
     ),
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Container from '../common/Container';
+import Link from 'next/link';
 
 const HeaderWrapper = styled.header`
   background: #2b2b2b;
@@ -28,6 +29,7 @@ const LogoText = styled.span`
   font-size: 26px;
   margin-left: 10px;
   color: #e0e0e0;
+  cursor: pointer;
 `;
 
 const Header = () => (
@@ -36,7 +38,9 @@ const Header = () => (
       <HeaderContent>
         <LogoWrapper>
           <Logo src='/static/images/logo.png' />
-          <LogoText>GitBlog</LogoText>
+          <Link href='/'>
+            <LogoText>GitBlog</LogoText>
+          </Link>
         </LogoWrapper>
       </HeaderContent>
     </Container>

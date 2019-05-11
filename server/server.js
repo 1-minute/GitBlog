@@ -12,6 +12,6 @@ nextApp.prepare().then(() => {
   console.log(process.env.PORT);
   app.listen(process.env.PORT || 9090, (err) => {
     if (err) throw err;
-    console.log('> Ready on Server Port: ' + process.env.PORT || 9090);
+    console.log(`> Ready on Server Port: ${  process.env.PORT}` || 9090);
   });
 });
