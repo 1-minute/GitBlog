@@ -69,13 +69,11 @@ export const getUserRepositories = async (req, res) => {
 export const saveUserRepository = async (req, res) => {
   try {
     const { user } = req.params;
-    console.log(user);
     const { repo } = req.body;
     const findUser = await User.findOne({ name: user });
     if (findUser) {
       findUser.repo = repo;
     }
-    console.log(findUser);
     await findUser.save();
     res.json({ status: 'ok' });
   } catch (err) {
