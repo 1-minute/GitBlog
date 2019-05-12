@@ -7,4 +7,5 @@ jobs: # a collection of steps
     steps:
       - checkout
       - setup_remote_docker
-      - run: docker build -t gitblog:${CIRCLE_BUILD_NUM} .
+      - run: docker build -t gitblog:{{ .Environment.CIRCLE_BUILD_NUM }} .
+      - push: docker push jqyulee/gitblog:{{ .Environment.CIRCLE_BUILD_NUM }}
