@@ -1,8 +1,10 @@
 version: 2 # use CircleCI 2.0
 jobs: # a collection of steps
   build: # runs not using Workflows must have a `build` job as entry point
+    working_directory: /app
     docker: # run the steps with Docker
-      - image: coreos # ...with this image as the primary container; this is where all `steps` will run
+      - image: docker:17.05.0-ce-git # ...with this image as the primary container; this is where all `steps` will run
     steps:
       - checkout
-      - run: docker build -t gitblog .
+      - setup_remote_docker
+      - run: docker build -t gitblog:${CIRCLE_BUILD_NUM} .
