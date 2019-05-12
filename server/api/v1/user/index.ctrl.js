@@ -24,7 +24,7 @@ export const getUserIssue = async (req, res) => {
   try {
     const { user } = req.params;
 
-    const findUser = await User.findOne({ name: user });
+    const findUser = await User.findOne({ name: user.toLowerCase() });
     if (findUser) {
       const { repo } = findUser;
       const response = await axios.get(
